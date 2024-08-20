@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.24)
 # Change to your project name
 project(SimpleJucePluginTemplate VERSION 0.0.1)
 
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_XCODE_GENERATE_SCHEME OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -35,7 +36,7 @@ set(SourceFiles
 )
 
 # Change these to your own preferences
-juce_add_plugin(SimpleJucePluginTemplate
+juce_add_plugin(${PROJECT_NAME}
         COMPANY_NAME theaudioprogrammer
         IS_SYNTH FALSE
         NEEDS_MIDI_INPUT FALSE
@@ -47,17 +48,14 @@ juce_add_plugin(SimpleJucePluginTemplate
         PLUGIN_MANUFACTURER_CODE Tap1
         PLUGIN_CODE Reg0
         FORMATS VST3 AU Standalone
-        PRODUCT_NAME "TAP Plugin Template"        
+        PRODUCT_NAME "TapPluginTemplate"        
 )
-
-# This is a little trick to keep our source files from being nested in an extra folder
-set_target_properties(SimpleJucePluginTemplate PROPERTIES FOLDER "")
 
 # How we want our SourceFiles to appear in our IDE
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
 
 # Make the SourceFiles buildable
-target_sources(SimpleJucePluginTemplate PRIVATE ${SourceFiles})
+target_sources(${PROJECT_NAME} PRIVATE ${SourceFiles})
 
 # These are some toggleable options from the JUCE CMake API
 target_compile_definitions(${PROJECT_NAME}
@@ -68,7 +66,7 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 # JUCE libraries to bring into our project
-target_link_libraries(SimpleJucePluginTemplate
+target_link_libraries(${PROJECT_NAME}
         PUBLIC
         juce::juce_analytics
         juce::juce_audio_basics
